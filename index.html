@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h2 class="heading">VEHICLE SYSTEM MANAGEMENT</h1>
+        <div class='container'>
+            <div>
+                <button id="vehicle">Vehicle Management</button>
+            </div>
+            <div>
+                <button id="driver">Driver Management</button>
+            </div>
+            <div id="trip-block">
+                <button>Trip Planning and Tracking <i class="fa fa-caret-down"></i></button>
+                <div class="sub-nav">
+                    <button id="show-trip-list">Show trips list</button>
+                    <button onclick="addTrip()">Add new trip</button>
+                </div>
+            </div>
+            <div>
+                <button id="history">Driver's History</button>
+            </div>
+        </div>
+    </header>
+    <main id="main">
+        <div id="vehicle-list" class="list">
+            <div class="button">
+                <button class="list-button" onclick="showVehicleList()">Show all vehicles</button>
+                <button class="add-button" onclick="addVehicle()">Add new vehicle</button>
+            </div>
+
+            <div id="vehicle-show" class="show">
+                <div id="show-vehicle-list"></div>
+                <form action="" id="vehicle-form">
+                    <div>
+                        <label for="licensePlate">License Plate:</label>
+                        <input type="tel" id="licensePlate" name="licensePlate" placeholder="123-456-789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
+                        <span class="form-message"></span>
+                    </div>
+                    <div>
+                        <label for="truck-type">Type of truck:</label>
+                        <input list="truck-type" name="truckType" id="truck">
+                        <span class="form-message"></span>
+                        <datalist id="truck-type">
+                            <option value="Mini Truck" class="option">
+                            <option value="Pickup Truck" class="option">
+                            <option value="Flatted Truck" class="option">
+                            <option value="Container Truck" class="option">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label for="payload">Payload of truck (kg):</label>
+                        <input type="number" name="payload" id="payload" min="200">
+                        <span class="form-message"></span>
+                    </div>
+                    <input type="submit" value="Submit" class="submit">
+                </form>
+            </div>
+        </div>
+        <div id="driver-list" class="list">
+            <div class="button">
+                <button class="list-button" onclick="showDriverList()">Show all drivers</button>
+                <button class="add-button" onclick="addDriver()">Add new driver</button>
+            </div>
+
+            <div id="driver-show" class="show">
+                <div id="show-driver-list"></div>
+                <form action="" id="driver-form">
+                    <div class="flex name">
+                        <div>
+                            <label for="first-name">First Name:</label>
+                            <input type="text" id="first-name" name="firstName" placeholder="John">
+                        </div>
+                        <div>
+                            <label for="last-name">Last Name:</label>
+                            <input type="text" id="last-name" name="lastName" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="age">Age:</label>
+                        <input type="number" name="age" id="age" min="18" max="60" required>
+                        <span class="form-message"></span>
+                    </div>
+                    <div>
+                        <label for="license-type">License Type:</label>
+                        <input list="license-type" name="licenseType" id="licenseType" required>
+                        <span class="form-message"></span>
+                        <datalist id="license-type">
+                            <option value="A">
+                            <option value="B">
+                            <option value="C">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                        <span class="form-message"></span>
+                    </div>
+                    <div>
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" placeholder="123 Main St">
+                    </div>
+                    <input type="submit" value="Submit" class="submit">
+                </form>
+            </div>
+        </div>
+        <div id="trip-list" class="list">
+            <div id="trip-button">
+                <button onclick="showCompleteTrip()" id="complete">Show completed trips</button>
+                <button onclick="showInProgressTrip()" id="progress">Show in-progress trips</button>
+                <button onclick="showScheduleTrip()" id="schedule">Show scheduled trips</button>
+                <button onclick="showAllTrip()" id="all">Show all trips</button>
+            </div>
+            <div class="trip">
+                <div id="complete-trip"></div>
+                <div id="progress-trip"></div>
+                <div id="schedule-trip"></div>
+                <div id="all-trip"></div>
+            </div>
+        </div>
+            
+        <form action="" id="trip-form">
+            <div>
+                <label for="route">Route: </label>
+                <input type="text" id="route" name="route" placeholder="A">
+            </div>
+            <div>
+                <label for="driver">Chosen Driver: </label>
+                <input list="ready-driver" name="readyDriver" id="readyDriver">
+                <span class="form-message"></span>
+                <datalist id="ready-driver"></datalist>
+            </div>
+            <div>
+                <label for="vehicle">Chosen Vehicle (License Plate):</label>
+                <input list="ready-vehicle" name="readyVehicle" id="readyVehicle">
+                <span class="form-message"></span>
+                <datalist id="ready-vehicle"></datalist>
+            </div>
+            <div>
+                <label for="date">Departure Date:</label>
+                <input type="date" id="departure-date" name="departure-date">
+                <span class="form-message"></span>
+            </div>
+            <div class="flex">
+                <div>
+                    <label for="departure-time">Departure Time:</label>
+                    <input type="time" id="departure-time" name="departure-time">
+                    <span class="form-message"></span>
+                </div>
+                <div>
+                    <label for="arrival-time">Arrival Time:</label>
+                    <input type="time" id="arrival-time" name="arrival-time">
+                    <span class="form-message"></span>
+                </div>
+            </div>
+            <div>
+                <label for="cost">Cost:</label>
+                <input type="number" id="arrival-time" name="arrival-time">
+            </div>
+            <input type="submit" value="Submit" class="submit">
+        </form>
+
+        <div id="history-list" class="list">
+            <div id="search">
+                <label for="driving-history">Driving history of driver: </label>
+                <input list="driving-history" name="history" id="driver-history" required>
+                <datalist id="driving-history"></datalist>
+                <button id="search-history">Search</button>
+            </div>
+            <h3 id="driver-info"></h3>
+            <div id="show-info"></div>
+            <h3 id="show-text"></h3>
+            <div id="show-drivingHistory"></div>
+        </div>
+    </main>
+    <script src="data.js"></script>
+    <script src="UX.js"></script>
+    <script src="validateVehicleForm.js"></script>
+    <script src="validateDriverForm.js"></script>
+    <script src="validateTripForm.js"></script>
+</body>
+</html>
